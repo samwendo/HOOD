@@ -15,34 +15,34 @@ import django_heroku
 import dj_database_url
 from decouple import config,Csv
 
-# MODE=config("MODE", default="dev")
-# SECRET_KEY = config('SECRET_KEY')
-# DEBUG = config('DEBUG', default=False, cast=bool)
-# # development
-# if config('MODE')=="dev":
-#    DATABASES = {
-#        'default': {
-#            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#            'NAME': config('DB_NAME'),
-#            'USER': config('DB_USER'),
-#            'PASSWORD': config('DB_PASSWORD'),
-#            'HOST': config('DB_HOST'),
-#            'PORT': '',
-#        }
+MODE=config("MODE", default="dev")
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=False, cast=bool)
+# development
+if config('MODE')=="dev":
+   DATABASES = {
+       'default': {
+           'ENGINE': 'django.db.backends.postgresql_psycopg2',
+           'NAME': config('DB_NAME'),
+           'USER': config('DB_USER'),
+           'PASSWORD': config('DB_PASSWORD'),
+           'HOST': config('DB_HOST'),
+           'PORT': '',
+       }
        
-#    }
-# # production
-# else:
-#    DATABASES = {
-#        'default': dj_database_url.config(
-#            default=config('DATABASE_URL')
-#        )
-#    }
+   }
+# production
+else:
+   DATABASES = {
+       'default': dj_database_url.config(
+           default=config('DATABASE_URL')
+       )
+   }
 
-# db_from_env = dj_database_url.config(conn_max_age=500)
-# DATABASES['default'].update(db_from_env)
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 
-# ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 # Email configurations remember to install python-decouple
 EMAIL_USE_TLS = config('EMAIL_USE_TLS')
@@ -50,6 +50,8 @@ EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_PORT = config('EMAIL_PORT')
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -125,15 +127,23 @@ WSGI_APPLICATION = 'neighbourhood.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'hood',
-        'USER': 'sam',
-    'PASSWORD':'12345',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'hood',
+#         'USER': 'sam',
+#     'PASSWORD':'12345',
+#     }
+# }
 
+DATABASES = {
+       'default': dj_database_url.config(
+           default=config('DATABASE_URL')
+       )
+   }
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
