@@ -1,0 +1,111 @@
+{%extends 'base.html'%}
+{%load bootstrap4%}
+{%block content%}
+
+</header>
+<!--Main Navigation-->
+
+<!--Main layout-->
+
+<style>
+  /* Popup container - can be anything you want */
+  .popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* The actual popup */
+  .popup .popuptext {
+    visibility: hidden;
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -80px;
+  }
+  
+  /* Popup arrow */
+  .popup .popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+  }
+  
+  /* Toggle this class - hide and show the popup */
+  .popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+  }
+  
+  /* Add animation (fade in the popup) */
+  @-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+  }
+  
+  @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+  }
+  </style>
+<main class="pt-5 mx-lg-5">
+  <div class="container-fluid mt-5">
+
+    <!-- Heading -->
+    <div class="card mb-4 wow fadeIn">
+
+      <!--Card content-->
+      <div class="card-body d-sm-flex justify-content-between">
+
+        <h4 class="mb-2 mb-sm-0 pt-1">
+          <span>Neighbourhood Registration Page<span>
+          <span>/</span>
+          <span>User registration</span>
+
+          <img src="../../static/images/karen.jpg" class="img-fluid text-center regimg">
+        </h4>
+
+        <form class="form-group regform" action="{% url 'index' %}"  method="post" enctype="multipart/form-data">
+          {%csrf_token%}
+          {%bootstrap_form form%}
+         <button class="btn btns"  type="submit" name="button">GO</button>
+        </form>
+       
+        
+      </div>
+      <div class="popup" onclick="myFunction()" style=" position:center; color: aliceblue;">  <button> CLICK TO VIEW INSTRUCTIONS! </button>
+        <span class="popuptext" id="myPopup"><button> YOU MUST REGISTER TO A NEIGHBOR HOOD, ELLS SOME PAGES MAY NOT RESPOND!</button></span>
+      </div>
+    </div>
+    
+  </div>
+ 
+  
+  <script>
+  // When the user clicks on div, open the popup
+  function myFunction() {
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+    TimeRanges.toggle(003)
+  }
+  </script>
+</main>
+
+{%endblock%}

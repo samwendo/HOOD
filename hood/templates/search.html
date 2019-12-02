@@ -1,0 +1,168 @@
+{%extends 'base.html'%}
+{%block content%}
+  </header>
+  <!--Main Navigation-->
+
+  <!--Main layout-->
+  <main class="pt-5 mx-lg-5">
+    <div class="container-fluid mt-5">
+
+      <!-- Heading -->
+      <div class="card mb-4 wow fadeIn">
+
+        <!--Card content-->
+        <div class="card-body d-sm-flex justify-content-between">
+
+          <h4 class="mb-2 mb-sm-0 pt-1">
+            <a href="https://mdbootstrap.com/docs/jquery/" target="_blank">Search results Page</a>
+            <span>/</span>
+            <span>{{main_user.neighbourhood_id}}</span>
+          </h4>
+
+          <form class="d-flex justify-content-center" action="{% url 'search' %}" role="search">
+            <!-- Default input -->
+            <input type="search" placeholder="Search for anything" aria-label="Search" class="form-control" name="search_name">
+            <button class="btn btn-primary btn-sm my-0 p" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+
+          </form>
+
+        </div>
+
+      </div>
+
+      <div class="row wow fadeIn">
+
+        <!--Grid column-->
+        <div class="col-md-12 mb-4">
+
+          <!--Card-->
+          <div class="card">
+            <div class="card-header">
+              <h1>News</h1>
+            </div>
+
+            <!--Card content-->
+            <div class="card-body">
+
+              <div class="row">
+
+              {% if news %}
+              {% for item in news %}
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-4 mb-4">
+
+                  <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
+                    <!--Content-->
+                    <div class="modal-content">
+
+                      <!--Header-->
+                      <div class="modal-header">
+                        <img src="{{item.image_path.url}}" class="rounded-circle img-responsive newsimg">
+                      </div>
+                      <!--Body-->
+                      <div class="modal-body text-center mb-1">
+
+                        <h2 class="mt-1 mb-2">{{item.title}}</h2>
+
+
+                        <div class="md-form ml-0 mr-0">
+                          <h4 class="card-text">{{item.category}} </h4>
+                          <p>{{item.description}}</p>
+                        </div>
+
+                        <div class="text-center mt-4">
+                          <p> Posted {{item.upload_date|timesince}} ago</p>
+                        </div>
+                      </div>
+
+                    </div>
+                    <!--/.Content-->
+                  </div>
+
+                </div>
+
+              {% endfor %}
+
+              </div>
+
+              {% else %}
+        				<div class="alert">
+        					<h2 class="alert alert-info animated fadeIn"> No announcements with searched name '{{name}}' for {{neighbourhood.name}} neighbourhood</h2>
+        				</div>
+        			{% endif %}
+
+            </div>
+
+          </div>
+          <!--/.Card-->
+
+        </div>
+
+        <!--Grid column-->
+        <div class="col-md-12 mb-4">
+
+          <!--Card-->
+          <div class="card">
+            <div class="card-header">
+              <h1>Business</h1>
+            </div>
+
+            <!--Card content-->
+            <div class="card-body">
+
+              {% if businesses %}
+              {% for item in businesses %}
+
+              {% endfor %}
+
+              {% else %}
+        				<div class="alert">
+        					<h2 class="alert alert-info animated fadeIn"> No news posts with searched name '{{name}}' for {{neighbourhood.name}} neighbourhood</h2>
+        				</div>
+        			{% endif %}
+
+            </div>
+
+          </div>
+          <!--/.Card-->
+
+        </div>
+
+        <!--Grid column-->
+        <div class="col-md-12 mb-4">
+
+          <!--Card-->
+          <div class="card">
+            <div class="card-header">
+              <h1>Services</h1>
+            </div>
+
+            <!--Card content-->
+            <div class="card-body">
+
+              {% if services %}
+              {% for service in services %}
+
+              {% endfor %}
+
+              {% else %}
+        				<div class="alert">
+        					<h2 class="alert alert-info animated fadeIn"> No services posted with searched name '{{name}}' for {{neighbourhood.name}} neighbourhood</h2>
+        				</div>
+        			{% endif %}
+
+            </div>
+
+          </div>
+          <!--/.Card-->
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+</header>
+{%endblock%}

@@ -1,0 +1,102 @@
+{%extends 'base.html'%}
+{%load bootstrap4%}
+{%block content%}
+</header>
+<!--Main Navigation-->
+
+<!--Main layout-->
+<main class="pt-5 mx-lg-5">
+  <div class="container-fluid mt-5">
+
+    <!-- Heading -->
+    <div class="card mb-4 wow fadeIn">
+
+      <!--Card content-->
+      <div class="card-body d-sm-flex justify-content-between">
+
+        <h4 class="mb-2 mb-sm-0 pt-1">
+          <a target="_blank">Services Page</a>
+          <span>/</span>
+          <span>{{main_user.neighbourhood_id}}</span>
+        </h4>
+
+        <form class="d-flex justify-content-center" action="{% url 'search' %}" role="search">
+          <!-- Default input -->
+          <input type="search" placeholder="Search for a service" aria-label="Search" class="form-control" name="search_name">
+          <button class="btn btn-primary btn-sm my-0 p" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
+
+        </form>
+
+      </div>
+
+    </div>
+
+    <!--Grid column-->
+    <div class="col-md-12 mb-4">
+
+      <!--Card-->
+      <div class="card">
+        <div class="card-header">
+          <h1>Services</h1>
+        </div>
+
+        <!--Card content-->
+        <div class="card-body">
+
+          {% if services %}
+          {% for item in services %}
+
+          <!--Grid column-->
+          <div class="col-lg-4 col-md-4 mb-4">
+
+            <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
+              <!--Content-->
+              <div class="modal-content">
+
+                <!--Header-->
+                <div class="modal-header">
+                  <img src="{{item.image_path.url}}" class="rounded-circle img-responsive newsimg">
+                </div>
+                <!--Body-->
+                <div class="modal-body text-center mb-1">
+
+                  <h2 class="mt-1 mb-2">{{item.title}}</h2>
+
+
+                  <div class="md-form ml-0 mr-0">
+                    <h4 class="card-text">{{item.category}} </h4>
+                    <p>{{item.description}}</p>
+                  </div>
+
+                  <div class="text-center mt-4">
+                    <p> Found at {{item.location}}</p>
+                  </div>
+                </div>
+
+              </div>
+              <!--/.Content-->
+            </div>
+
+          </div>
+
+          {% endfor %}
+
+          {% else %}
+            <div class="alert">
+              <h2 class="alert alert-info animated fadeIn"> No services posted yet for {{neighbourhood.name}} neighbourhood</h2>
+            </div>
+          {% endif %}
+
+        </div>
+
+      </div>
+      <!--/.Card-->
+
+    </div>
+
+  </div>
+</main>
+</header>
+{%endblock%}

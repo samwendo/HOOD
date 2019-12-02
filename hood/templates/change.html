@@ -1,0 +1,43 @@
+{%extends 'base.html'%}
+{%load bootstrap4%}
+{%block content%}
+</header>
+<!--Main Navigation-->
+
+<!--Main layout-->
+<main class="pt-5 mx-lg-5">
+  <div class="container-fluid mt-5">
+
+    <!-- Heading -->
+    <div class="card mb-4 wow fadeIn">
+
+      <!--Card content-->
+      <div class="card-body d-sm-flex justify-content-between">
+
+        <h4 class="mb-2 mb-sm-0 pt-1">
+          <a href="https://mdbootstrap.com/docs/jquery/" target="_blank">Change Neighbourhood</a>
+          <span>/</span>
+          <span></span>
+        </h4>
+
+      </div>
+
+    </div>
+
+    <form class="form-group" action="{% url 'category' %}" method="post" enctype="multipart/form-data">
+
+
+    {%csrf_token%}
+    {%bootstrap_form form%}
+
+    <div class="text-center mt-4">
+      <button class="btn btn-cyan">Create
+      </button>
+    </div>
+
+    </form>
+
+  </div>
+</main>
+</header>
+{%endblock%}

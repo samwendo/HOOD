@@ -1,0 +1,170 @@
+{%extends 'base.html'%}
+{%load bootstrap4%}
+{%block content%}
+
+<main class="pt-5 mx-lg-5">
+  <div class="container-fluid mt-5">
+
+    <!--Card-->
+    <div class="card mb-4">
+
+      <!--Card content-->
+      <div class="card-body">
+        <div class="row">
+          <div class="col-4 text-center">
+            <img src="{{profile.profile_picture.url}}"
+              class="img-fluid z-depth-1-half rounded-circle">
+            <div style="height: 10px"></div>
+            <p class="title mb-0">{{profile.name}}</p>
+            <p class="text-muted " style="font-size: 13px">{{profile.role}}</p>
+          </div>
+
+          <div class="col-md-5">
+            <span>
+            <h1 class="card-text">Neighbourhood: </h1>
+            <p>{{profile.neighbourhood_id}}</p>
+            </span>
+            <p> {{news|length}} posted news articles</p>
+            <div class="card-text row">
+              <div class="col-md-12">
+                <h3>Contact Information:</h3>
+                <div>Email: <strong>{{profile.email_address}}</strong></div>
+                <span>ID: <em>{{profile.id_number}}</em></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <br>
+            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#fluidModalRightSuccessDemo">Upload News</button>
+            <br>
+            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalLoginAvatarDemo"> New Category </button>
+            <br>
+            <a href="{% url 'change' %}"> <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalLoginAvatarDemo"> Change Neighbourhood </button> </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!--/.Card-->
+
+    <div class="row wow fadeIn">
+      {% if news %}
+      {% for item in news %}
+
+      <!--Grid column-->
+      <div class="col-lg-6 col-md-6 mb-4">
+
+        <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
+          <!--Content-->
+          <div class="modal-content">
+
+            <!--Header-->
+            <div class="modal-header">
+              <img src="{{item.image_path.url}}" class="rounded-circle img-responsive newsimg">
+            </div>
+            <!--Body-->
+            <div class="modal-body text-center mb-1">
+
+              <h2 class="mt-1 mb-2">{{item.title}}</h2>
+
+
+              <div class="md-form ml-0 mr-0">
+                <h4 class="card-text">{{item.category}} </h4>
+                <p>{{item.description}}</p>
+              </div>
+
+              <div class="text-center mt-4">
+                <p> Posted {{item.upload_date|timesince}} ago</p>
+              </div>
+            </div>
+
+          </div>
+          <!--/.Content-->
+        </div>
+
+      </div>
+      {% endfor %}
+
+      {% else %}
+				<div class="alert">
+					<h2 class="alert alert-info animated fadeIn"> You have no news posts yet</h2>
+				</div>
+			{% endif %}
+    </div>
+
+    <!--Modal Form Login with Avatar Demo-->
+    <div class="modal fade" id="modalLoginAvatarDemo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
+        <!--Content-->
+        <div class="modal-content">
+
+          <!--Header-->
+          <div class="modal-header">
+            <h3>Create Category</h3>
+          </div>
+          <!--Body-->
+          <div class="modal-body text-center mb-1 pad">
+
+            <form class="form-group" action="{% url 'category' %}" method="post" enctype="multipart/form-data">
+
+
+            {%csrf_token%}
+            {%bootstrap_form categoryform%}
+
+            <div class="text-center mt-4">
+              <button class="btn btn-cyan">Create
+              </button>
+            </div>
+
+            </form>
+          </div>
+
+        </div>
+        <!--/.Content-->
+      </div>
+    </div>
+    <!--Modal Form Login with Avatar Demo-->
+
+      <!-- Full Height Modal Right Success Demo-->
+      <div class="modal fade right" id="fluidModalRightSuccessDemo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true" data-backdrop="false">
+        <div class="modal-dialog modal-full-height modal-right modal-notify modal-primary" role="document">
+          <!--Content-->
+
+          <div class="modal-content">
+            <form class="form-group" action="{% url 'profile' %}"  method="post" enctype="multipart/form-data">
+            <!--Header-->
+            <div class="modal-header">
+              <p class="heading lead">What's New?</p>
+
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" class="white-text">&times;</span>
+              </button>
+            </div>
+
+            <!--Body-->
+            <div class="modal-body">
+              <div class="text-center">
+                <i class="fas fa-newspaper fa-4x mb-3 animated rotateIn"></i>
+
+                  {%csrf_token%}
+                  {%bootstrap_form form%}
+
+              </div>
+            </div>
+
+            <!--Footer-->
+            <div class="modal-footer justify-content-center">
+              <button class="btn btn-primary  type="submit" name="button">Post News</button>
+            </div>
+          </form>
+          </div>
+          <!--/.Content-->
+        </div>
+      </div>
+      <!-- Full Height Modal Right Success Demo-->
+    </div>
+  </main>
+{%endblock%}

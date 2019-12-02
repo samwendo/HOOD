@@ -1,0 +1,103 @@
+<!-- Navbar -->
+<nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+  <div class="container-fluid">
+
+    <!-- Brand -->
+    <a class="navbar-brand waves-effect" href="{% url 'home' %}" target="_self">
+      <strong class="blue-text">THE HOOD</strong>
+    </a>
+
+    <!-- Collapse -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Links -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      <!-- Left -->
+      <ul class="navbar-nav mr-auto hide">
+        <li class="nav-item active one">
+          <a class="nav-link waves-effect" href="{% url 'home' %}">Dashboard
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item two">
+          <a class="nav-link waves-effect" href="{% url 'profile' %}" target="_self">Profile</a>
+        </li>
+        <li class="nav-item three">
+          <a class="nav-link waves-effect" href="{% url 'services' %}" target="_self">Services</a>
+        </li>
+        <li class="nav-item four">
+          <a class="nav-link waves-effect" href="{% url 'business' %}" target="_self">Business</a>
+        </li>
+        <li class="nav-item five">
+          <a class="nav-link waves-effect" href="{% url 'about' %}" target="_self">About Us</a>
+        </li>
+      </ul>
+
+      <!-- Right -->
+      <ul class="navbar-nav nav-flex-icons right">
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a href="/logout" class="nav-link border border-light rounded waves-effect" target="_self">
+            <i class="fas fa-sign-out-alt"></i>Sign Out
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/accounts/password/change" class="nav-link border border-light rounded waves-effect" target="_self">
+            <i class="fas fa-unlock-alt"></i>Change Password
+          </a>
+        </li>
+        {% if main_user.role == 'Admin' %}
+        <li class="nav-item">
+          <a href="{% url 'user_admin'%}" class="nav-link border border-light rounded waves-effect" target="_self">
+            <i class="fas fa-user-shield"></i>Admin Page
+          </a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a href="{% url 'change'%}" class="nav-link border border-light rounded waves-effect" target="_self">
+            <i class="fas fa-exchange-alt"></i>Change Neighbourhood
+          </a>
+        </li>
+        {% endif %}
+        {% else %}
+        <li class="nav-item">
+          <a href="/accounts/login" class="nav-link border border-light rounded waves-effect" target="_self">
+            <i class="fas fa-sign-in-alt"></i>Sign In
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+
+    </div>
+
+  </div>
+</nav>
+<!-- Navbar -->
+
+<!-- Sidebar -->
+<div class="sidebar-fixed position-fixed">
+
+  <a class="logo-wrapper waves-effect">
+    <img src="../../static/images/logo.png" class="img-fluid text-center" width="300px">
+  </a>
+
+  <div class="list-group list-group-flush">
+    <a href="{% url 'home' %}" class="list-group-item active waves-effect one">
+      <i class="fas fa-chart-pie mr-3"></i>Dashboard
+    </a>
+    <a href="{% url 'profile' %}" class="two list-group-item list-group-item-action waves-effect">
+      <i class="fas fa-user mr-3"></i>Profile</a>
+    <a href="{% url 'services' %}" class="three list-group-item list-group-item-action waves-effect">
+      <i class="fas fa-table mr-3"></i>Services</a>
+    <a href="{% url 'business' %}" class="four list-group-item list-group-item-action waves-effect">
+      <i class="fas fa-money-bill-alt mr-3"></i>Business</a>
+    <a href="{% url 'about' %}" class="five list-group-item list-group-item-action waves-effect">
+      <i class="fas fa-address-card mr-3"></i>About Us</a>
+  </div>
+
+</div>
+<!-- Sidebar -->

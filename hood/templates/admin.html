@@ -1,0 +1,485 @@
+{%extends 'base.html'%}
+{%load bootstrap4%}
+{%block content%}
+  </header>
+  <!--Main Navigation-->
+
+  <!--Main layout-->
+  <main class="pt-5 mx-lg-5">
+    <div class="container-fluid mt-5">
+
+      <!-- Heading -->
+      <div class="card mb-4 wow fadeIn">
+
+        <!--Card content-->
+        <div class="card-body d-sm-flex justify-content-between">
+
+          <h4 class="mb-2 mb-sm-0 pt-1">
+            <a href="https://mdbootstrap.com/docs/jquery/" target="_blank">Admin Control Page</a>
+            <span>/</span>
+            <span>{{main_user.neighbourhood_id}}</span>
+          </h4>
+
+          <form class="d-flex justify-content-center" action="{% url 'search' %}" role="search">
+            <!-- Default input -->
+            <input type="search" placeholder="Search for Anything" aria-label="Search" class="form-control" name="search_name">
+            <button class="btn btn-primary btn-sm my-0 p" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+
+          </form>
+
+        </div>
+
+      </div>
+      <!-- Heading -->
+
+      <!--Grid row-->
+      <div class="row wow fadeIn">
+
+        <!--Grid column-->
+        <div class="col-md-9 mb-4">
+
+          <!--Card-->
+          <div class="card">
+
+            <!--Card content-->
+            <div class="card-body">
+
+              <img src="{{main_user.neighbourhood_id.image_path.url}}" class="img-fluid text-center admimg">
+
+            </div>
+
+          </div>
+          <!--/.Card-->
+
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-md-3 mb-4">
+
+          <!--Card-->
+          <div class="card mb-4">
+
+            <!-- Card header -->
+            <div class="card-header text-center">
+              Neighbourhood Info
+            </div>
+
+            <!--Card content-->
+            <div class="card-body">
+
+              <div class="row">
+                <div class="col-md-12 text-center">
+                  <span> <strong class="text-primary">Name: </strong> <em>{{main_user.neighbourhood_id.name}}</em> </span>
+                  <span> <strong class="text-primary">Location: </strong> <em>{{main_user.neighbourhood_id.location}}</em> </span>
+                  <span> <strong class="text-primary">Administrator: </strong> <em>{{main_user.neighbourhood_id.admin}}</em> </span>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+          <!--/.Card-->
+
+          <!--Card-->
+          <div class="card mb-4">
+            <div class="card-header text-center">
+              Statistics
+            </div>
+
+            <!--Card content-->
+            <div class="card-body">
+
+              <!-- List group links -->
+              <div class="list-group list-group-flush text-center">
+                <a class="list-group-item list-group-item-action waves-effect">Population
+                  <span class="badge badge-primary badge-pill pull-right">{{occupants|length}}</span>
+                </a>
+              </div>
+              <!-- List group links -->
+
+
+
+            </div>
+
+          </div>
+          <!--/.Card-->
+
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+
+      <!--Grid column-->
+      <div class="col-md-9 mb-4">
+
+        <!--Card-->
+        <div class="card">
+
+          <!--Card content-->
+          <div class="card-body">
+
+            <p class="text-center">{{main_user.neighbourhood_id.description}}</p>
+
+          </div>
+
+        </div>
+        <!--/.Card-->
+
+      </div>
+      <!--Grid column-->
+
+      <div class="row wow fadeIn">
+
+        <!--Grid column-->
+        <div class="col-md-12 mb-4">
+
+          <!--Card-->
+          <div class="card">
+            <div class="card-header">
+              <h1 class="text-primary text-center">Residents</h1>
+            </div>
+
+            <!--Card content-->
+            <div class="card-body">
+
+              <div class="row">
+
+              {% if occupants %}
+              {% for item in occupants %}
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-4 mb-4">
+
+                  <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
+                    <!--Content-->
+                    <div class="modal-content">
+
+                      <!--Header-->
+                      <div class="modal-header">
+                        <img src="{{item.profile_picture.url}}" class="rounded-circle img-responsive newsimg">
+                      </div>
+                      <!--Body-->
+                      <div class="modal-body text-center mb-1">
+
+                        <h2 class="mt-1 mb-2">{{item.name}}</h2>
+
+
+                        <div class="md-form ml-0 mr-0">
+                          <h4 class="card-text">ID: {{item.id_number}} </h4>
+                          <p>{{item.email_address}}</p>
+                        </div>
+                      </div>
+
+                    </div>
+                    <!--/.Content-->
+                  </div>
+
+                </div>
+
+              {% endfor %}
+
+              </div>
+
+              {% else %}
+        				<div class="alert">
+        					<h2 class="alert alert-info animated fadeIn"> No Occupants in {{neighbourhood.name}} neighbourhood yet</h2>
+        				</div>
+        			{% endif %}
+
+            </div>
+
+          </div>
+          <!--/.Card-->
+
+        </div>
+
+      </div>
+
+        <!--Grid column-->
+        <div class="col-md-12 mb-4">
+
+          <!--Card-->
+          <div class="card">
+
+            <!--Section: Modals-->
+            <section>
+
+              <!-- Side Modal Top Right Success-->
+              <div class="modal fade right" id="sideModalTRSuccessDemo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                aria-hidden="true" data-backdrop="false">
+                <div class="modal-dialog modal-side modal-top-right modal-notify modal-success" role="document">
+                  <!--Content-->
+                  <div class="modal-content">
+                    <!--Header-->
+                    <div class="modal-header">
+                      <p class="heading lead">Register Business</p>
+
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="white-text">&times;</span>
+                      </button>
+                    </div>
+
+                    <!--Body-->
+                    <div class="modal-body">
+                      <div class="text-center">
+                        <i class="fas fa-check fa-4x mb-3 animated rotateIn"></i>
+                        <form class="form-group" action="{% url 'newbusiness' %}" method="post" enctype="multipart/form-data">
+
+
+                        {%csrf_token%}
+                        {%bootstrap_form businessform%}
+
+                        <div class="text-center mt-4">
+                          <button class="btn btn-cyan">Create
+                          </button>
+                        </div>
+
+                        </form>
+                      </div>
+                    </div>
+
+                  </div>
+                  <!--/.Content-->
+                </div>
+              </div>
+              <!-- Side Modal Top Right Success-->
+
+              <!--Modal Form Login with Avatar Demo-->
+              <div class="modal fade" id="modalLoginAvatarDemo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
+                  <!--Content-->
+                  <div class="modal-content">
+
+                    <!--Header-->
+                    <div class="modal-header">
+                      <h3>Create Category</h3>
+                    </div>
+                    <!--Body-->
+                    <div class="modal-body text-center mb-1 pad">
+
+                      <form class="form-group" action="{% url 'category' %}" method="post" enctype="multipart/form-data">
+
+
+                      {%csrf_token%}
+                      {%bootstrap_form categoryform%}
+
+                      <div class="text-center mt-4">
+                        <button class="btn btn-cyan">Create
+                        </button>
+                      </div>
+
+                      </form>
+                    </div>
+
+                  </div>
+                  <!--/.Content-->
+                </div>
+              </div>
+              <!--Modal Form Login with Avatar Demo-->
+
+              <!-- Central Modal Large Info-->
+              <div class="modal fade" id="centralModalLGInfoDemo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-notify modal-info" role="document">
+                  <!--Content-->
+                  <div class="modal-content">
+                    <!--Header-->
+                    <div class="modal-header">
+                      <p class="heading lead">Create Service</p>
+
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="white-text">&times;</span>
+                      </button>
+                    </div>
+
+                    <!--Body-->
+                    <div class="modal-body">
+                      <div class="text-center">
+                        <i class="fas fa-check fa-4x mb-3 animated rotateIn"></i>
+                        <form class="form-group" action="{% url 'newservice' %}" method="post" enctype="multipart/form-data">
+
+
+                        {%csrf_token%}
+                        {%bootstrap_form serviceform%}
+
+                        <div class="text-center mt-4">
+                          <button class="btn btn-cyan">Create
+                          </button>
+                        </div>
+
+                        </form>
+                      </div>
+
+
+                    </div>
+                  </div>
+                  <!--/.Content-->
+                </div>
+              </div>
+              <!-- Central Modal Large Info-->
+
+              <!-- Full Height Modal Right Success Demo-->
+              <div class="modal fade right" id="fluidModalRightSuccessDemo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                aria-hidden="true" data-backdrop="false">
+                <div class="modal-dialog modal-full-height modal-right modal-notify modal-primary" role="document">
+                  <!--Content-->
+
+                  <div class="modal-content">
+                    <form class="form-group" action="{% url 'user_admin' %}"  method="post" enctype="multipart/form-data">
+                    <!--Header-->
+                    <div class="modal-header">
+                      <p class="heading lead">What's New?</p>
+
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="white-text">&times;</span>
+                      </button>
+                    </div>
+
+                    <!--Body-->
+                    <div class="modal-body">
+                      <div class="text-center">
+                        <i class="fas fa-newspaper fa-4x mb-3 animated rotateIn"></i>
+
+                          {%csrf_token%}
+                          {%bootstrap_form form%}
+
+                      </div>
+                    </div>
+
+                    <!--Footer-->
+                    <div class="modal-footer justify-content-center">
+                      <button class="btn btn-primary  type="submit" name="button">Post News</button>
+                    </div>
+                  </form>
+                  </div>
+                  <!--/.Content-->
+                </div>
+              </div>
+              <!-- Full Height Modal Right Success Demo-->
+
+              <!-- Full Height Modal Left Info Demo-->
+              <div class="modal fade left" id="fluidModalLeftInfoDemo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                aria-hidden="true" data-backdrop="false">
+                <div class="modal-dialog modal-full-height modal-left modal-notify modal-info" role="document">
+                  <!--Content-->
+                  <div class="modal-content">
+                    <!--Header-->
+                    <div class="modal-header">
+                      <p class="heading lead">Register New Neighbourhood</p>
+
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="white-text">&times;</span>
+                      </button>
+                    </div>
+
+                    <!--Body-->
+                    <div class="modal-body">
+                      <div class="text-center">
+                        <i class="fas fa-plus-square fa-4x mb-3 animated rotateIn"></i>
+                        <form class="form-group" action="{% url 'newneighbourhood' %}" method="post" enctype="multipart/form-data">
+
+
+                        {%csrf_token%}
+                        {%bootstrap_form neighbourhoodform%}
+
+                        <div class="text-center mt-4">
+                          <button class="btn btn-cyan">Create
+                          </button>
+                        </div>
+
+                        </form>
+                      </div>
+
+                    </div>
+                  </div>
+                  <!--/.Content-->
+                </div>
+              </div>
+              <!-- Full Height Modal Right Info Demo-->
+
+            </section>
+            <!--Section: Modals-->
+
+            <!-- Card header -->
+            <div class="card-header">Administrative desk</div>
+
+            <!--Card content-->
+            <div class="card-body">
+
+              <div class="text-center mb-5">
+                <p class="lead">Upload News, Services, Businesses, and Neighbourhoods</p>
+              </div>
+
+              <!-- First row-->
+              <div class="row">
+
+                <!--First column-->
+                <div class="col-md-3">
+                  <h5 class="text-center mb-3">New Neighbourhood</h5>
+                  <div class="text-center">
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#fluidModalLeftInfoDemo">Create Neighbourhood</button>
+                    <br>
+                  </div>
+                </div>
+                <!--First column-->
+
+                <!--Second column-->
+                <div class="col-md-3">
+                  <h5 class="text-center mb-3">New Service</h5>
+                  <div class="text-center">
+                    <br>
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#centralModalLGInfoDemo">create service
+                    </button>
+                    <br>
+                  </div>
+                </div>
+                <!--Second column-->
+
+                <!--Third column-->
+                <div class="col-md-3">
+                  <h5 class="text-center mb-3">New Business</h5>
+                  <div class="text-center">
+                    <br>
+                    <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#sideModalTRSuccessDemo"
+                      data-backdrop="false">Register Business</a>
+                    <br>
+                  </div>
+                </div>
+                <!--Third column-->
+
+                <!--Fourth column-->
+                <div class="col-md-3">
+                  <h5 class="text-center mb-3">News / Announcements</h5>
+
+                  <div class="text-center">
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#fluidModalRightSuccessDemo">Upload News</button>
+                    <br>
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalLoginAvatarDemo">Create Category
+                    </button>
+                    <br>
+                  </div>
+                </div>
+                <!--Fourth column-->
+
+              </div>
+              <!-- /.First row-->
+
+            </div>
+
+          </div>
+          <!--/.Card-->
+
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+
+  </main>
+  <!--Main layout-->
+{%endblock%}
