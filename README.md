@@ -25,3 +25,11 @@ This is a online neighbourhood tracking application where a user can register as
 ## Known Bugs
 No Bugs
 
+## Technologies Used
+* CSS for styling.
+* Bootstrap4
+* HTML for webpage design.
+* Python3.6.
+* Django 1.11
+
+
