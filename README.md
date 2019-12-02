@@ -35,3 +35,7 @@ No Bugs
 ## Dependencies
 * pip
 
+## Support and contact details
+* Telephone: +(254) 700-082-835
+* Email: wendosam21@gmail.com
+
