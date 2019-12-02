@@ -39,3 +39,7 @@ No Bugs
 * Telephone: +(254) 700-082-835
 * Email: wendosam21@gmail.com
 
+### License and Copyright details
+* The MIT License (MIT)
+* Copyright (c) 2019**Sam Wendo**
+
