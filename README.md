@@ -22,5 +22,6 @@ This is a online neighbourhood tracking application where a user can register as
 * On your terminal run `python manage.py runserver`
 * Access the live site using the local host provided
 
-
+## Known Bugs
+No Bugs
 
